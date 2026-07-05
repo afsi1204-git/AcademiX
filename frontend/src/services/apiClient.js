@@ -64,9 +64,10 @@ apiClient.interceptors.response.use(
         (config.url.startsWith('/auth') || config.url.indexOf('/auth') !== -1)
       ) {
         config.__retried_with_api_prefix = true;
-        const retryBase = window.location.origin.replace(/\/+$/, '') + '/api';
+        // Retry against the configured backend base URL (ensures retry targets the API host)
+        const retryBase = BASE_URL;
         const retryConfig = Object.assign({}, config, { baseURL: retryBase });
-        console.info('[API CLIENT] Retrying failed auth request with base:', retryBase, 'url:', config.url);
+        console.info('[API CLIENT] Retrying failed auth request with configured base:', retryBase, 'url:', config.url);
         return axios(retryConfig);
       }
     }
