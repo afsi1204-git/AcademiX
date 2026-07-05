@@ -232,7 +232,9 @@ function App() {
             {/* Public routes */}
             <Route path="/" element={<AnimatedRoute><HomePage /></AnimatedRoute>} />
             <Route path="/login" element={<AnimatedRoute direction="left"><LoginPage /></AnimatedRoute>} />
+            <Route path="/auth/login" element={<Navigate to="/login" replace />} />
             <Route path="/register" element={<AnimatedRoute direction="right"><RegisterPage /></AnimatedRoute>} />
+            <Route path="/auth/register" element={<Navigate to="/register" replace />} />
             <Route path="/courses" element={<AnimatedRoute><CoursesPage /></AnimatedRoute>} />
 
             {/* Protected routes */}
