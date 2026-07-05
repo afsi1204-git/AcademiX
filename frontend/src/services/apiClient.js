@@ -53,7 +53,7 @@ apiClient.interceptors.response.use(
       // once by prefixing the request with the origin + `/api` to fix routing
       // mismatches on hosting platforms.
       if (
-        error.response.status === 404 &&
+        (error.response.status === 404 || error.response.status === 405) &&
         !config.__retried_with_api_prefix &&
         config.url &&
         (config.url.startsWith('/auth') || config.url.indexOf('/auth') !== -1)
