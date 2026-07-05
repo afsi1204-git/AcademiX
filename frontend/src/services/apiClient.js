@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 const getBaseUrl = () => {
-  const configuredUrl = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE_URL;
+  let configuredUrl = process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE_URL;
 
   if (configuredUrl && configuredUrl.trim()) {
-    return configuredUrl.replace(/\/+$/, '');
+    configuredUrl = configuredUrl.trim().replace(/\/+$/, '');
+    // Ensure the configured URL points at the API namespace
+    if (!configuredUrl.includes('/api')) {
+      configuredUrl = configuredUrl + '/api';
+    }
+    return configuredUrl;
   }
 
   if (process.env.NODE_ENV === 'development') {
