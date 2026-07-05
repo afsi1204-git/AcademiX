@@ -19,7 +19,20 @@ const getBaseUrl = () => {
   return '/api';
 };
 
-const BASE_URL = getBaseUrl();
+let BASE_URL = getBaseUrl();
+
+// Runtime fallback: if the site is served from Vercel (or another static host)
+// and the built BASE_URL is relative, prefer the known Render backend so
+// API requests go to the live backend instead of the static frontend host.
+try {
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname || '';
+    if (BASE_URL === '/api' && host.includes('vercel.app')) {
+      BASE_URL = 'https://academix-ov75.onrender.com/api';
+      console.info('[API CLIENT] Overriding baseURL for Vercel host to', BASE_URL);
+    }
+  }
+} catch (e) {}
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
