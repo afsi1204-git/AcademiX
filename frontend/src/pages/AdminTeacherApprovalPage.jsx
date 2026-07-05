@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import LoadingSpinner from '../components/LoadingSpinner';
 import apiClient from '../services/apiClient';
 
